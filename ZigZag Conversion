@@ -1,0 +1,39 @@
+string convert(string s, int numRows) {
+    int size = s.size();
+    if (numRows >= size)
+        return s;
+    int n = 1;
+    int i = 0;
+    int k = 0;
+    int index = 0;
+    string answer;
+    while (n <= numRows)
+    {
+        index = i;
+        answer.push_back(s[index]);
+
+        while (index < size)
+        {
+            k = (numRows - n) * 2;
+            if (index + k >= size)
+                break;
+            if (k != 0) //rows between the highest and the lowest ones + the highest
+            {
+                index = index + k;
+                answer.push_back(s[index]);
+            }
+            k = (numRows - 1) * 2 - k;
+            if (index + k >= size)
+                break;
+            if (k != 0) //rows between the highest and the lowest ones + the lowest
+            {
+                index = index + k;
+                answer.push_back(s[index]);
+            }
+        }
+
+        n++;
+        i++;
+    }
+    return answer;
+}
