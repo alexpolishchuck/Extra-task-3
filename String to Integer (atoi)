@@ -1,0 +1,50 @@
+int myAtoi(string s)
+{
+    int answer = 0;
+    int max = 2147483647;
+    bool negative = false;
+    int size = s.size();
+    int k = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (s[i] == 45)
+        {
+            negative = true;
+            k = i;
+            break;
+        }
+        else if ((s[i] >= 48 && s[i] <= 57) || s[i] == 43)
+        {
+            k = i;
+            break;
+        }
+
+        else if (s[i] != 32 && s[i] != 43 && (s[i] < 48 || s[i]>57))
+            return 0;
+
+    }
+    if (negative || s[k] == 43)
+        k++;
+    for (int i = k; i < size; i++)
+    {
+        if (s[i] < 48 || s[i]>57)
+            break;
+
+
+        if ((answer == max / 10 && s[i] >= 55) || answer > max / 10)
+        {
+            answer = max;
+            max = 0;
+            break;
+
+        }
+        else
+            answer = answer * 10 - 48 + s[i];
+
+    }
+    if (negative)
+        answer *= -1;
+    if (max == 0 && negative)
+        answer--;
+    return answer;
+}
