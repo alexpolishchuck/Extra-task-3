@@ -1,0 +1,30 @@
+int romanToInt(string s) {
+    string symbols = "IVXLCDM";
+    int result = 0;
+    int size = s.size();
+    int n = symbols.size();
+    int j = 0;
+    int jprev = -1;
+    for (int i = 0; i < size; i++)
+    {
+        j = 0;
+        while (s[i] != symbols[j])
+            j++;
+
+        if (j % 2 == 0)
+        {
+            if (jprev != -1 && jprev < j)
+                result -= 2*pow(10, jprev / 2);
+
+            result += pow(10, j / 2);
+        }
+        else
+        {
+            if (jprev != -1 && jprev < j)
+                result -= 2*pow(10, jprev / 2);
+            result += 5 * pow(10, j / 2);
+        }
+        jprev = j;
+    }
+    return result;
+}
