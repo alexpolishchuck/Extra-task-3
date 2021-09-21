@@ -1,0 +1,81 @@
+ vector<vector<int>> fourSum(vector<int>& nums, int target) {
+
+     vector<vector<int>> answer;
+    vector<int> arr;
+    int size = nums.size();
+    if (size == 0)
+        return answer;
+    int j = 0;
+    int i = 0;
+    int d ;
+    int k ;
+
+
+    for (i = 1; i < size; i++)      //insertion sort
+    {
+        j = i - 1;
+        int key = nums[j + 1];
+        while (j >= 0 && key < nums[j])
+        {
+            nums[j + 1] = nums[j];
+            nums[j] = key;
+            j--;
+        }
+    }
+
+    j = size - 1;
+    
+    long int sum;
+    bool changej = false;
+    for (i = 0; i < size -3; i++)
+    {
+        for (j = size - 1; j > i; j--)
+        {
+            d = i + 1;
+            k = j - 1;
+         
+            while (d < k)
+            {
+               long int a=nums[i],b=nums[d],c=nums[k],f=nums[j];
+                sum = a + b + c +f;
+                if (sum == target)
+                {
+                    arr = { nums[i],nums[d],nums[k],nums[j] };
+                    if (!answer.size())
+                    {
+                        answer.push_back(arr);
+
+                    }
+                    else
+                        if (!exists(answer, arr))
+                        {
+                            answer.push_back(arr);
+
+                        }
+                    k--;
+                    //here
+                }
+                else if (sum < target)
+                {
+                    d++;
+                }
+                else if (sum > target)
+                {
+                   
+                    k--;
+                }
+
+            }
+
+            
+        }
+    }
+    return answer;
+}
+    bool exists( vector<vector<int>> answer,vector<int> arr)
+    {
+        for(int i=0; i<answer.size(); i++)
+            if(answer[i][0]== arr[0] && answer[i][1]== arr[1] && answer[i][2]== arr[2] && answer[i][3]== arr[3])
+                return true;
+        return false;
+    }
