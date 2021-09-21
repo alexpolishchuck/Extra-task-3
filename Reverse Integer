@@ -1,0 +1,14 @@
+int reverse(int x) {
+    int answer = 0;
+   
+
+    while (x)
+    {
+        answer = answer * 10;
+        answer = answer + x % 10;
+        x /= 10;
+    }
+    /*if (negative)
+        answer *= -1;*/
+    return answer;
+}
