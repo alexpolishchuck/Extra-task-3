@@ -1,0 +1,49 @@
+double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+    int m = nums1.size();
+    int n = nums2.size();
+    double result;
+
+    vector<int>nums3;
+    if (m < n)
+    {
+        for (int i = 0; i < m; i++)
+            nums2.push_back(nums1[i]);
+        nums3 = nums2;
+    }
+    else
+    {
+
+        for (int i = 0; i < n; i++)
+            nums1.push_back(nums2[i]);
+        nums3 = nums1;
+    }
+    int size = nums3.size();
+    if (size)
+    {
+        //insertion sort
+        for (int i = 1; i < size; i++)
+        {
+            int key = nums3[i];
+            int j = i - 1;
+            while (j > -1 && nums3[j] > key)
+            {
+                nums3[j + 1] = nums3[j];
+                nums3[j] = key;
+                j--;
+            }
+        }
+        if (size % 2 != 0)
+        {
+            size = size / 2;
+            return nums3[size];
+        }
+        else
+        {
+            result = (double(nums3[size / 2 - 1]) + nums3[size / 2] )/ 2;
+            return result;
+        }
+
+
+    }
+    else return 0;
+}
