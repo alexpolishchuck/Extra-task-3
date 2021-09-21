@@ -1,0 +1,59 @@
+ vector<string> letterCombinations(string digits) {
+    int size = digits.size();
+    vector<string> answer;
+    if (!size)
+        return answer;
+    vector<string> letters = { "abc","def","ghi","jkl","mno","pqrs","tuv","wxyz" };
+
+    string choice = letters[digits[0] - '0' - 2];
+    string comb;
+    if (size == 1)
+    {
+
+        for (int i = 0; i < choice.size(); i++)
+        {
+            comb.push_back(choice[i]);
+            answer.push_back(comb);
+            comb.pop_back();
+        }
+        return answer;
+
+    }
+
+
+    int i = 0;
+  choice = letters[digits[i] - 50];
+        for (int j = 0; j < choice.size(); j++)
+        {
+            comb.clear();
+            comb.push_back(choice[j]);
+            createcombinations(digits, comb, i + 1, letters, answer);
+            comb.pop_back();
+        }
+
+    
+
+    for (int i = 0; i < answer.size(); i++)
+    {
+        cout << answer[i] << endl;
+    }
+    return answer;
+}
+    void createcombinations(string digits, string comb, int index, vector<string> letters, vector<string>& answer)
+{
+    if (index == digits.size())
+        answer.push_back(comb);
+    else
+        {
+        int i = index;
+            string choice = letters[digits[i] - 50];
+            for (int j = 0; j < choice.size(); j++)
+            {
+
+                comb.push_back(choice[j]);
+                createcombinations(digits, comb, i + 1, letters, answer);
+                comb.pop_back();
+            }
+
+        }
+}
